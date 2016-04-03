@@ -1,3 +1,4 @@
+var offerclient = require('./offerClient.js');
 var exports = module.exports = {};
 exports.scanAndPublishMessage = function(sp, device){
         var messageId = 0;
@@ -7,7 +8,9 @@ exports.scanAndPublishMessage = function(sp, device){
 	    var cardId = data.replace(/[^A-Z0-9]/g,'');
 	    console.log('Our card ID: '+cardId);
             messageId = messageId + 1;
+            var jsonstring = JSON.stringify({messageId: messageId,name: 'suresh',rfid: cardId});
 	    device.publish('topic_2', JSON.stringify({messageId: messageId,name: 'suresh',rfid: cardId}));
+            offerclient.getOffer(jsonstring);
 	  });
         });
 }
